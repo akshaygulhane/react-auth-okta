@@ -4,10 +4,7 @@ import { withAuth } from "@okta/okta-react";
 
 export default withAuth(
   class Home extends Component {
-    constructor(props) {
-      super(props);
-      this.state = { authenticated: null };
-    }
+    state = { authenticated: null };
 
     checkAuthentication = async () => {
       const authenticated = await this.props.auth.isAuthenticated();
@@ -38,18 +35,29 @@ export default withAuth(
       const mainContent = this.state.authenticated ? (
         <div>
           <p className="lead">
-            {" "}
-            You have entered the Staff Portal,{" "}
-            <Link to="/staff"> Click here </Link>
+            You have entered the Dev Team portal,{" "}
+            <Link to="/staff">click here</Link>
           </p>
+          <button className="btn btn-light btn-lg" onClick={this.logout}>
+            Logout
+          </button>
         </div>
       ) : (
-        <div />
+        <div>
+          <p className="lead">
+            If you are a Dev Team member, please get your credentials from
+            Akshay
+          </p>
+          <button className="btn btn-dark btn-lg" onClick={this.login}>
+            Login
+          </button>
+        </div>
       );
 
       return (
         <div className="jumbotron">
           <h1 className="display-4">Proxce Dev Portal</h1>
+          {mainContent}
         </div>
       );
     }
